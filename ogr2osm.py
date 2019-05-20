@@ -50,6 +50,7 @@ import re
 
 from osgeo import ogr
 from osgeo import osr
+from osgeo import gdal
 from geom import *
 
 # Determine major Python version is 2 or 3
@@ -133,6 +134,11 @@ def getFileData(filename):
                 filename = '/vsitar/' + filename
             elif filename.endswith('.zip'):
                 filename = '/vsizip/' + filename
+
+    if OPTIONS.encoding:
+        gdal.SetConfigOption("SHAPE_ENCODING",OPTIONS.encoding)
+    if OPTIONS.verbose:
+        gdal.SetConfigOption("CPL_DEBUG","ON")
 
     fileDataSource = ogr.Open(filename, 0)  # 0 means read-only
     if fileDataSource is None:
@@ -533,7 +539,7 @@ def output():
             if IS_PYTHON2:
                 f.write(etree.tostring(xmlobject))
             else:
-                f.write(etree.tostring(xmlobject, encoding='unicode'))
+                f.write(etree.tostring(xmlobject, encoding=OPTIONS.encoding))
             f.write('\n')
 
         for relation in relations:
