@@ -783,7 +783,10 @@ def main():
     output()
     if OPTIONS.saveid:
         with open(OPTIONS.saveid, 'wb') as ff:
-            ff.write(str(Geometry.elementIdCounter))
+            if IS_PYTHON2:
+                ff.write(str(Geometry.elementIdCounter))
+            else:
+                ff.write(bytearray(str(Geometry.elementIdCounter),'utf-8'))
         l.info("Wrote elementIdCounter '%d' to file '%s'"
             % (Geometry.elementIdCounter, OPTIONS.saveid))
 
