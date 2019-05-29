@@ -10,7 +10,7 @@ Installation
 ogr2osm requires gdal with python bindings. Depending on the file formats 
 you want to read you may have to compile it yourself but there should be no 
 issues with shapefiles. On Ubuntu you can run `sudo apt-get install -y python-gdal python-lxml` to get
-the software you need.
+the software you need, on Fedora use `dnf -y install gdal-python-tools`, and use python3: `python3 ./ogr2osm/ogr2osm.py`.
 
 It also makes use of lxml. Although it should fall back to builtin XML implementations seamlessly these are less likely to be tested and will most likely run much slower.
 
